@@ -1,0 +1,4 @@
+#!/usr/bin/env kotlin
+
+// FUNCTIONS PRACTICE
+// LAMBDA EXPRESSIONS PRACTICE
