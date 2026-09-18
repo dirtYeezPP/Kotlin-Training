@@ -227,12 +227,136 @@ Function parameters can be assigned default values. A parameter with a default v
 </br>
 *After the first skipped parameter, all subsequent parameters must be named.* 
 #### FUNCTIONS WITHOUT RETURN 
+If a function does not return any useful value -- > the return type is *Unit*. 
+</br> 
+Unit -- > a type with only one value. </br> 
+It is not required to declare that Unit is returned explicitly in the function body. 
+- must not use return keyword or declare a return type. 
+```Kotlin
+fun printMessage(message: String){
+    println(message)
+    // return unit or return are optional 
+}
+
+fun main(){
+    printMessage("Hello")
+}
+```
 #### SINGLE-EXPRESSION FUNCTIONS
+For more concise code -- > can use single-expression functions. 
+- i.e. *sum* can be shortened. 
+
+```Kotlin
+fun sum(x: Int, y: Int) = x + y
+```
+The function body is declared by the assignment operator '='. In this case, Kotlin uses type inference
+which means the return type can be omitted. 
+</br> 
+*When using {} for declaring the function body, the return type must be declared unless its Unit.*
+
 #### EARLY RETURNS IN FUNCTIONS 
+To stop code in a function from processing past a certain point, use *return*. 
+```Kotlin
+val enrolledCats = mutableListOf("nisse", "bosse", "knasse", "chönk")
+fun enrollCatNursery(name: String): String {
+    if(name in enrolledCats){
+        return "The cat has already beed enrolled into the nursery"
+    }
+    enrolledCats.add(name)
+    return "Cat named $name enrolled, we'll come back to u shortly."
+}
+
+fun main(){
+    println(enrollCatNursery("bosse"))
+    println(enrollCatNursery("cherri"))
+}
+```
 
 ### LAMBDA EXPRESSIONS 
-###### PASS TO ANOTHER FUNCTION 
+Concise code is very achievable thanks to lambda expressions, for example: 
+```Kotlin
+fun upperCaseString(text: String): String {
+    return text.uppercase()
+}
+
+// written as a lambda expression in main instead
+fun main(){
+    val upperCaseString = {text: String -> text.uppercase()}
+    println(upperCaseString("hello"))
+}
+```
+
+Lambda expressions are written within curly brackets. Within is written: 
+- The parameters followed by the '->'. 
+- The function body after the '->'. 
+The lambda expression is called by using the variable like a function and sending in parameters. 
+</br>
+*If you declare a lambda without parameters, you must not use '->'*.
+
+Usage of lambda expressions: 
+- Pass a lambda expression as parameter to another function. 
+- Return a lambda expression from a function. 
+- Invoke a lambda expression on its own. 
+
+##### PASS TO ANOTHER FUNCTION 
+###### FILTER
+It is useful to pass a lambda expression to a function for example here: 
+```Kotlin
+// filter on collections
+val numbers = listOf(1, 3, 5, -7, -9)
+val positives = numbers.filter({ x -> x > 0 }) // true if element is positive 
+
+val isNegative = {x: Int -> x < 0} // true if element is negative 
+val negatives = numbers.filter(isNegative)
+
+println(positives)
+println(negatives)
+```
+
+The filter function accepts a lambda expression as a predicate & applies it to each element of the list. 
+The element is only kept if the predicate returns *true*. </br> 
+1. For positives -- > the lambda expression is added directly in the filter function. 
+2. For negatives, the lambda expression is assigned to a variable. That variable is then used as a function parameter 
+in the filter function. In this case, the type of function parameters have to be specified. 
+3. *If a lambda expression is the only function param -- > function parentheses can be dropped*. 
+   - *This is an example of a **trailing lambda***
+###### MAP 
+```Kotlin 
+val numbers = listOf(1, 2, 4, 7, -9)
+val doubled = numbers.map({x -> x*2}) // returns element * 2 for each 
+
+val isTrippled = {x: Int -> x*3} // returns each element * 3 
+val trippled = numbers.map(isTrippled)
+
+println(doubled)
+println(trippled)
+```
+The map function accepts a lambda expression as a transform function. 
+
+<hr> 
+
 ##### FUNCTION TYPES 
+Syntax for function: 
+- Each parameter's type written within parentheses and separated by commas. 
+- The return type after the '->'. 
+  - I.e. (String) -> String.  
+  - or (Int, Int) -> Int.
+A lambda expression with a function type defined for upperCaseString():
+```Kotlin
+val upperCaseString: (String) -> String = {text -> text.uppercase()}
+```
+If the lambda expression has no parameters -- > the parentheses are left empty. </br> 
+- for example: () -> Unit. </br>
+*Parameter and return types must be declared either in the lambda expression or as function types. Otherwise, 
+the compiler won't know what type the lambda expression is.*
+
 ##### RETURN FROM A FUNCTION 
-###### INVOKE SEPARATELY 
+When lambda expressions are returned from functions, the function type must be declared. 
+##### INVOKE SEPARATELY 
 ##### TRAILING LAMBDAS 
+
+<hr> 
+
+## CLASSES 
+
+## NULL SAFETY 
