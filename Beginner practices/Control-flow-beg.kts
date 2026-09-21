@@ -47,7 +47,7 @@ fun loopExercise1SecondAlternative(){
     println("There are $pizzaSlices slices of pizza. Hooray! We have a whole pizza! :D")
 }
 
-fun LoopExercise2(){
+fun loopExercise2(){
     for(number in 1..100){
         println(
             when{
@@ -62,11 +62,9 @@ fun LoopExercise2(){
 
 fun loopExercise3(){
     val words = listOf("dino", "limo", "magazine", "leopard")
-    println(
         for(word in words){
-            if(word.startWith("l")){
+            if(word.startsWith("l")){
                 println(word)
-            } else return
+            }
         }
-    )
 }

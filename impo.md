@@ -512,3 +512,95 @@ Creating a copy instance is safer than modifying the original thing.
 <hr>
 
 ## NULL SAFETY 
+Null values are possible in Kotlin. 
+- When something is missing or not set. 
+
+Null safety is a combination of features which allows: 
+- Explicit declaration when null values are allowed in the program. 
+- Check for null values. 
+- Usage of safe calls to properties / functions that may contain null values. 
+- Declaration of actions to take if null values are detected. 
+
+### NULLABLE TYPES 
+Nullable types allow for the possibility for declared types to have null values. 
+By default, types are not allowed to accept null values. 
+- Nullable types are declared by adding ? after type declaration. 
+
+Example: 
+```Kotlin
+var neverNull: String = "This can not be null" 
+neverNull = null // throws compiler error  
+
+var nullable: String? = "This can be null"
+nullable = null // this works 
+
+var inferredNotNull = "The compiler assumes non-nullable"
+inferredNotNull = null 
+
+fun strLen(notNull: String): Int {
+    return notNull.length
+}
+
+println(strLen(neverNull))
+println(strLen(nullable)) // throws compiler error. 
+```
+
+### CHECKING FOR NULL VALUES 
+- I.e. within conditional expressions. 
+Example: 
+```Kotlin
+fun descString(maybe: String?): String {
+    if(maybe != null && maybe.length > 0){
+        return "string of length ${maybe.length}"
+    } else {
+        return "empty or null"
+    }
+} 
+
+fun main(){
+    val nullString: String? = null 
+    prinln(descString(nullString)) // empty or null string 
+}
+```
+
+### SAFE CALLS 
+Safe access of object properties that might contain a null value requires using a safe call operator (?.).
+- Returns null if either the object or one of the accessed properties is null. 
+- Useful if we want to avoid errors caused by null values. 
+
+Example: 
+```Kotlin
+fun stringLen(maybe: String?): Int? = maybe?.length 
+
+fun main(){
+    val nullStr: String? = null
+    println(stringLen(nullString)) // null 
+}
+```
+
+*Safe calls can be chained -- > person.company?.address?.country*
+
+The safety operator can also be used for: 
+- Safe call of extension or member function 
+```Kotlin
+fun main(){
+    val nullString: String? = null
+    println(nullString?.uppercase())
+} 
+```
+The invocation of *uppercase* is skipped since nullString is null. Null is returned. 
+### ELVIS OPERATOR 
+Elvis operator (?:) is used to provide a default value to return in cases of null detection. 
+- Left hand side -- > what should be checked for a null value? 
+- Right hand side -- > what should be returned if a null value is detected. 
+
+Example: 
+```Kotlin
+fun main(){
+    val nullString: String? = null 
+    println(nullString?.length ?: 0) // 0 
+}
+```
+
+
+
