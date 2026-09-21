@@ -418,5 +418,97 @@ are not accessible after an instance of the class is created.
 
 - The content contained within () is called **class header**. 
 - It's possible to use a *trailing comma* upon declaration of properties.
-###
+- Class properties can have default values. 
+
+### CREATING INSTANCES 
+In order to create an object from a class, a class instance shall be declared using a constructor. 
+Kotlin automatically creates a constructor with the parameters 
+declared in the class header. 
+Example: 
+```Kotlin
+class Contact(val id: Int, var eamil: String)
+
+    fun main(){
+        val contact = Contact(1, "chash@gmail.com")
+    }
+```
+- Contact -- > Class 
+- contact -- > instance of Contact class.
+- id & email -- > properties 
+- id & email -- > used with default constructor to create *contact*. 
+
+#### ACCESS PROPERTIES 
+To access a property of an instance -- > name of property after instance name appended with . 
+```Kotlin
+println(contact.email)
+```
+
+*To concatenate the value of a property as part of a string, 
+it is possible to use string templates ($).*
+
+### MEMBER FUNCTIONS 
+It is possible to define an object's behavior with member functions. 
+In Kotlin 
+- member functions shall be declared within the class body. 
+- Calling a member function of an instance -- > function name after instance name + . 
+Example:
+```Kotlin
+class Contact(val Id: Int, var email: String) {
+    fun printId(){
+        println(Id)
+    }
+}
+
+fun main(){
+    val contact = Contact(1, "gay@email.com")
+    contact.printId()
+}
+```
+
+### DATA CLASSES 
+Data classes are useful for storing data. </br> 
+These have the same functionality as classes, but come automatically with 
+additional member functions. 
+- Allows easy printing of instance to readable output.
+- Comparison of classes
+- Copying of instances. 
+
+```Kotlin
+data class User(val name: String, val Id: Int)
+```
+The compiler only uses the properties defined inside the primary constructor upon member functions generation. 
+If properties are declared in the data class body, they will not be included
+in the output of the generated functions. 
+
+**Function -- > Description**
+toString() -- > prints readable string of class instance & its properties. 
+equals() || ==  -- > Compares instances of a class. 
+copy() -- > Creates a class by copying another, potentially with different properties. 
+
+##### PRINT AS STRING
+Printing a readable string of a class instance can be done by 
+- explicit call of the *toString* function
+- usage of print functions (print, println) which call toString automatically. 
+
+**Useful for debugging or log creation.** 
+##### COMPARE INSTANCES 
+To compare data class instances, use the equality operator -- > ==. (Boolean return yes). 
+##### COPY INSTANCES 
+Creating an exact copy is done with the *copy()* function on the instance. 
+
+Creation of a data class with addition of changing some properties requires 
+calling the *copy* function on the instance, and add replacement values 
+for properties as function parameters. 
+Example: 
+```Kotlin
+val user = User("Alex", 1)
+
+println(user.copy())
+println(user.copy("Max"))
+println(user.copy(id = 3))
+```
+Creating a copy instance is safer than modifying the original thing.
+
+<hr>
+
 ## NULL SAFETY 
