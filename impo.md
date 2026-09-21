@@ -352,11 +352,71 @@ the compiler won't know what type the lambda expression is.*
 
 ##### RETURN FROM A FUNCTION 
 When lambda expressions are returned from functions, the function type must be declared. 
+for example: 
+```Kotlin
+fun toSeconds(time: String): (Int) -> Int = when(time){
+    "hour"->{value -> value*60*60}
+    "minute"->{value->value*60}
+    "second"->{value->value}
+    else -> {value -> value}
+}
+```
+Here, when is used to determine which lambda expression is returned when calling 
+the *toSeconds* function. 
 ##### INVOKE SEPARATELY 
+Lambda expressions can be invoked on their own by adding parentheses after
+the curly brackets, including any parameters within the (). 
+```Kotlin
+println({text: String -> text.uppercase()}("hello"))
+```
 ##### TRAILING LAMBDAS 
+If a lambda expression is the only parameter, the function parentheses 
+can be dropped. If it's passed as the last parameter, it can be written outside the 
+function parentheses. 
+**This is called a trailing lambda.**
+
+Example: 
+```Kotlin
+println(listOf(1,2,3,4).fold(0, {x, item->x+item})) // returns 6
+
+// in form of trailing lambda.
+println(listOf(1,2,3,4).fold(0){x, item->x+item}) // returns 6 
+```
+The *fold* function accepts an initial value and an operation. </br> 
+The initial value is 0, then the operation sums the initial value with every 
+item in the list cumulatively. 
 
 <hr> 
 
 ## CLASSES 
+Kotlin supports object-oriented programming yay. 
+Objects -- > useful for storing data in program. 
+Classes -- > allows declaration of sets of characteristics 
+for objects. 
 
+Declaring a class is done by "*class Customer*". 
+
+### PROPERTIES
+Characteristics of a class's object can be declared in properties.
+Examples:
+- within () after class name. 
+```Kotlin
+class Contact(val id: Int, var email: String)
+```
+- within class body defined by {}
+```Kotlin
+class Contact(val Id: Int, var email: String){
+    val category: String = ""
+}
+```
+
+Kotlin recommends declaration of properties as read-only (val). 
+Unless they ought to be changed after an instance creation. 
+
+Properties can be declared without *var* or *val*, but they 
+are not accessible after an instance of the class is created. 
+
+- The content contained within () is called **class header**. 
+- It's possible to use a *trailing comma* upon declaration of properties.
+###
 ## NULL SAFETY 
