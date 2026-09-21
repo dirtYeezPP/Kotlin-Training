@@ -1,7 +1,7 @@
 #!/usr/bin/env kotlin
 
 class Circle(var diameter: Float) {
-    val radius = diameter / 2
+    val radius = diameter / 2.0
     val area = (radius * radius) * 3.14
 }
 
